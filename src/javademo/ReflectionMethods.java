@@ -8,7 +8,7 @@ import java.lang.reflect.*;
  * @version 1.1 2004-02-21
  * @author Cay Horstmann
  */
-public class ReflectionTest
+public class ReflectionMethods
 {
    public static void main(String[] args)
    {
@@ -118,7 +118,7 @@ public class ReflectionTest
    // getModifiers + getType + getName !!!!!
    public static void printFields(Class cl)
    {
-      Field[] fields = cl.getDeclaredFields();
+      Field[] fields = cl.getDeclaredFields();	// fields.length可为0，但fields不为null。
 
       for (Field f : fields)
       {
