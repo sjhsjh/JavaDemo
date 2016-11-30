@@ -17,9 +17,11 @@ public class ReflectionMethods
       if (args.length > 0) name = args[0];
       else
       {
-         Scanner in = new Scanner(System.in);
+         // Scanner in = new Scanner(System.in);
+         Date date;
          System.out.println("Enter class name (e.g. java.util.Date): ");
-         name = in.next();
+         name = "java.util.Date";
+         // name = in.next();
       }
       // System.out.print("name " + name);
       
@@ -28,12 +30,16 @@ public class ReflectionMethods
          // print class name and superclass name (if != Object)
          Class cl = Class.forName(name);
          Class supercl = cl.getSuperclass();
+         myReflection(name);
+         
+         
          String modifiers = Modifier.toString(cl.getModifiers());
          if (modifiers.length() > 0) System.out.print(modifiers + " ");
          System.out.print("class " + name);
-         if (supercl != null && supercl != Object.class) System.out.print(" extends "
-               + supercl.getName());
+         if (supercl != null && supercl != Object.class) 
+        	 System.out.print(" extends " + supercl.getName());
 
+         
          System.out.print("\n{\n");
          printConstructors(cl);
          System.out.println();
@@ -49,6 +55,98 @@ public class ReflectionMethods
       System.exit(0);
    }
 
+   
+   public static void myReflection(String classStr){
+	   String str = "";
+		try {
+			Class objectClass = Class.forName(classStr);
+			
+			// ①反射类的声明
+			Class superClass = objectClass.getSuperclass();
+			Class interfaces[] = objectClass.getInterfaces();
+			str = Modifier.toString(objectClass.getModifiers()) + " " + objectClass;
+			if(superClass != null && superClass != Object.class){	// 继承
+				str += " extends " + superClass.getName();		// Class有getSimpleName方法，interface也有class
+			}
+			if(interfaces.length > 0){	// 实现
+				str += " implements ";
+				for(int i = 0; i < interfaces.length; i++){
+					if(i == 0){
+						str += interfaces[i].getName();
+						continue;
+					}
+					str += ", " + interfaces[i].getName();
+				}
+			}
+			System.out.println("类的声明：" + str + "\n");
+			
+			// ②反射类的成员变量
+			str = "";
+			Field[] fields = objectClass.getDeclaredFields();
+			AccessibleObject.setAccessible(fields, true);
+			
+			for(int i = 0; i < fields.length; i++){
+				str = Modifier.toString(fields[i].getModifiers());
+				Class fieldType = fields[i].getType();
+				str += " " + fieldType.getName() + " " + fields[i].getName();
+				Object fieldValue = fields[i].get(objectClass);	// 需要递归才能显示值
+				if(fields[i].getType().isPrimitive()){////////////////////////????
+					str += "=" + fieldValue;
+				}
+				System.out.println("类的成员变量：" + str);
+			}
+			System.out.print("\n");
+/*			类的成员变量：private static final [Ljava.lang.String; wtb
+			类的成员变量：private static final [I ttb    ??? */
+			
+			
+			// ③反射类的构造方法
+			Constructor[] constructors = objectClass.getDeclaredConstructors();
+			for(int i = 0; i < constructors.length; i++){
+				str = Modifier.toString(constructors[i].getModifiers()) + " " + constructors[i].getName() + "(";	// Constructor无getSimpleName方法！
+				Class paraClass[] = constructors[i].getParameterTypes();	// 注意这里竟然没有自动装箱,得出int.class，它无包名！
+				for(int j = 0; j < paraClass.length; j++){ // 不定长参数？
+					if(j != 0){
+						str += ", ";
+					}
+					str += paraClass[j].getSimpleName();
+					// if(paraClass[j] == int.class)	System.out.println("!!");// !!!!!!
+				}
+				str += ")";
+				System.out.println("类的构造方法：" + str);
+			}
+			System.out.print("\n");
+			
+			
+			// ④反射类的方法
+			Method[] methods = objectClass.getDeclaredMethods();
+			for(int i = 0; i < methods.length; i++){
+				str = Modifier.toString(methods[i].getModifiers()) + " ";
+				str += methods[i].getReturnType().getSimpleName() + " " + methods[i].getName() + "(";
+				Class[] paraClass = methods[i].getParameterTypes();
+				for(int j = 0; j < paraClass.length; j++){
+					if(j != 0){
+						str += ", ";
+					}
+					str += paraClass[j].getSimpleName();
+				}
+				str += ")";
+				System.out.println("类的方法:" + str);
+			}
+			System.out.print("\n");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
+	   
+   }
+    
+   
    /**
     * Prints all constructors of a class
     * @param cl a class
