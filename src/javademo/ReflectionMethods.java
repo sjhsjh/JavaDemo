@@ -89,8 +89,8 @@ public class ReflectionMethods
 				str = Modifier.toString(fields[i].getModifiers());
 				Class fieldType = fields[i].getType();
 				str += " " + fieldType.getName() + " " + fields[i].getName();
-				Object fieldValue = fields[i].get(objectClass);	// 需要递归才能显示值
-				if(fields[i].getType().isPrimitive()){////////////////////////????
+				Object fieldValue = fields[i].get(objectClass.newInstance());	// 需要递归才能显示值,是obj不是objectClass！
+				if(fields[i].getType().isPrimitive()){////////////////
 					str += "=" + fieldValue;
 				}
 				System.out.println("类的成员变量：" + str);
@@ -141,6 +141,8 @@ public class ReflectionMethods
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
 			e.printStackTrace();
 		}
 	   
