@@ -33,13 +33,14 @@ public class Tmain {
 	}
 
 	static int num = 5;
-	static String str1 = "asd";
+	static String str1 = "str1";
 
 	public static void main(String[] args) {
 
-		new Text2();
+		// new Text2();
 		// Text2.b++;
 		
+
 		
 	}
 
@@ -61,8 +62,7 @@ public class Tmain {
 		List<SupplementalAdminAreas> myList = new ArrayList<Tmain.SupplementalAdminAreas>();
 		myList.add(new SupplementalAdminAreas("name1", "name11"));
 		myList.add(new SupplementalAdminAreas("name2", "name22"));
-		SupplementalAdminAreas[] array = myList
-				.toArray(new SupplementalAdminAreas[0]);// List转数组！new出的数组不够大api会创建一个新的空间够大的数组。
+		SupplementalAdminAreas[] array = myList.toArray(new SupplementalAdminAreas[0]);// List转数组！new出的数组不够大api会创建一个新的空间够大的数组。
 		System.out.println(Arrays.toString(array));
 
 		
@@ -135,6 +135,7 @@ public class Tmain {
 		System.out.println((int) (d * 100) / 100.0 + " " + String.format("%.2f", d));
 	}
 
+	
 	public static void changeData(StringBuffer sb) {
 		StringBuffer sb2 = new StringBuffer("sb2 ");
 		sb = sb2;
@@ -148,22 +149,7 @@ public class Tmain {
 	
 }  
 	
-//	public static void main(String[] args) {
-//	int[] a = new int[6];
-//		int[]b = new int[]{1,3,4};
-//		
-//		Text3 text3 = new Text3();
-//		text3.textabstract();
-//		
-//		Text1[] str = new Text1[5];
-//		
-//		str[0] = new Text3();
-//		str[0].normal();
-//		
-//		Text3 t3 = new Text3();
-//		System.out.println(Text2.class.);
-//		
-//	}
+
 
 
 		  

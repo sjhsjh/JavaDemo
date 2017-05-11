@@ -1,15 +1,5 @@
 package javademo;
 
-//public class Text3 extends Text2{
-//
-//	public int re = 3; 
-//
-//
-//
-//	
-//}
-
-
 public class Text3 implements ITest {
 	int i = 3;
 
@@ -23,4 +13,5 @@ public class Text3 implements ITest {
 
 	}
 
+	
 }
