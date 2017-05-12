@@ -15,6 +15,7 @@ public class ObjectReflectToString {
 		for (int i = 1; i <= 4; i++)
 			squares.add(i * i);
 		System.out.println(new ObjectAnalyzer().toString(squares));
+		System.out.println(squares.toString());	//	[1, 4, 9, 16]
 	}
 }
 
