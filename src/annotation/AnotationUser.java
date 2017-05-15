@@ -7,11 +7,11 @@ public class AnotationUser {
 	
 	private String mFruitName;
 	
-	@IFruitColorAnnotation(getHeight = 1, getColor = Color.yellow)
+	@IFruitColorAnnotation(getHeight = 3, getColor = Color.yellow)
 	private Color mFruitColor;
 	
-	@IFruitNameAnnotation(getFruitName = "asd")
-	private void anotationTest(){
+	@IFruitNameAnnotation(getFruitName = "orange") // 若只写值“orange”，则默认的方法名要是value().
+	private void anotationFruitName(){
 		
 	}
 	

@@ -21,7 +21,7 @@ public @interface IFruitColorAnnotation {
 	}
 	
 	Color getColor() default Color.red;
-	int getHeight() default 99;
+	int getHeight() default 2;
 	
 	
 }

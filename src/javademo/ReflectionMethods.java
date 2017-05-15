@@ -28,7 +28,7 @@ public class ReflectionMethods
       try
       {
          // print class name and superclass name (if != Object)
-         Class cl = Class.forName(name);
+    	 Class cl = Class.forName(name);  // Class cl = Date.class; 也行！！
          Class supercl = cl.getSuperclass();
          myReflection(name);
          

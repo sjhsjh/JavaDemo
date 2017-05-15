@@ -1,17 +1,20 @@
 package javademo;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import annotation.AnotationUser;
+import annotation.IFruitColorAnnotation;
+import annotation.IFruitNameAnnotation;
 		
-
 
 public class Tmain {
 
@@ -36,11 +39,25 @@ public class Tmain {
 	static String str1 = "str1";
 
 	public static void main(String[] args) {
-
-		// new Text2();
-		// Text2.b++;
 		
-
+		Class c = AnotationUser.class;
+		Field[] fields = c.getDeclaredFields();
+		for(Field field : fields){
+			if(field.isAnnotationPresent(IFruitColorAnnotation.class)){
+				IFruitColorAnnotation iFruitColorAnnotation = field.getAnnotation(IFruitColorAnnotation.class);
+				System.out.println(iFruitColorAnnotation.getColor() + " " + iFruitColorAnnotation.getHeight());
+			}
+			
+		}
+		
+		Method[] methods = c.getDeclaredMethods();
+		for(Method method : methods){
+			if(method.isAnnotationPresent(IFruitNameAnnotation.class)){
+				IFruitNameAnnotation iFruitNameAnnotation = method.getAnnotation(IFruitNameAnnotation.class);
+				System.out.println(iFruitNameAnnotation.getFruitName());
+			}
+		}
+		
 		
 	}
 
@@ -51,6 +68,7 @@ public class Tmain {
 
 
 	public static void debug() {
+		// new Text2();
 		// Arrays.toString(array)根list.toString得出的结果是一样的 。格式：[xx, xx, xx]
 		SupplementalAdminAreas supplementalAdminAreas[] = new SupplementalAdminAreas[2];
 		supplementalAdminAreas[0] = new SupplementalAdminAreas("name1", "name11");
