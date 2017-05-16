@@ -40,6 +40,14 @@ public class Tmain {
 
 	public static void main(String[] args) {
 		
+        
+		anotationTest();
+		
+	}
+
+
+
+	public static void anotationTest(){
 		Class c = AnotationUser.class;
 		Field[] fields = c.getDeclaredFields();
 		for(Field field : fields){
@@ -54,18 +62,11 @@ public class Tmain {
 		for(Method method : methods){
 			if(method.isAnnotationPresent(IFruitNameAnnotation.class)){
 				IFruitNameAnnotation iFruitNameAnnotation = method.getAnnotation(IFruitNameAnnotation.class);
-				System.out.println(iFruitNameAnnotation.getFruitName());
+				System.out.println(iFruitNameAnnotation.getFruitName() + " " + iFruitNameAnnotation.annotationType());	//  interface annotation.IFruitNameAnnotation
 			}
 		}
-		
-		
 	}
-
-
-		  
 		
-
-
 
 	public static void debug() {
 		// new Text2();
