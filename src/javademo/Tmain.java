@@ -1,5 +1,6 @@
 package javademo;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -39,13 +40,65 @@ public class Tmain {
 	static String str1 = "str1";
 
 	public static void main(String[] args) {
+
 		
-        
 		anotationTest();
-		
+		long a = 2l << 31;		// 不加l则默认的2是int类型，a会为0！！
+		System.out.println((int)a);
+		System.out.println(Math.round(-2.4));
+
+
+        byte b = (byte) 128;
+        System.out.println(b);
+        
+
+//        MyThread runnable = new MyThread() ;  // 实例化Runnable子类对象 
+//        Thread t = new Thread(runnable,"Runnable线程");     // 实例化Thread对象 
+//        t.start() ; // 启动线程 
+//        try{ 
+//        	System.out.println("begin "+ Thread.currentThread().getName()) ; 
+//            Thread.sleep(10000) ;    // 线程休眠2秒 
+//        }catch(InterruptedException e){ 
+//            System.out.println("3、休眠被终止00000000000") ; 
+//        }
+//        System.out.println("==interrupt=");
+//        t.interrupt() ; // 中断线程执行 
+        
+
+        MyThread my = new MyThread() ;  // 实例化MyThread对象 
+        Thread t1 = new Thread(my,"线程A") ; 
+        Thread t2 = new Thread(my,"线程B") ; 
+        t1.start() ; 
+        t2.start() ; 
+
+  
 	}
 
+    public static class MyThread extends Thread{ // 实现Runnable接口 
+        public void run(){ 
+//            System.out.println("1、进入run()方法");
+//
+//            try {
+//                System.in.read();   // 接受输入，使程序在此停顿，一旦接收到用户输入，main线程结束，守护线程自动结束
+//            } catch (IOException ex) {
+//            	
+//            }
+//            System.out.println("4、run()方法正常结束") ; 
+            for(int i=0;i<5;i++){ 
+                try{ 
+                    Thread.sleep(500) ; 
+                }catch(Exception e){
+                } 
+                System.out.println(Thread.currentThread().getName() + "运行，i = " + i) ;  // 取得当前线程的名字 
+                if(i==2){ 
+                    System.out.print(Thread.currentThread().getName() + "礼让：") ; 
+                    Thread.currentThread().yield() ;    // 线程礼让 
+                    System.out.print(Thread.currentThread().getName() + "yield over") ; 
+                } 
+            } 
 
+        } 
+    }; 
 
 	public static void anotationTest(){
 		Class c = AnotationUser.class;
